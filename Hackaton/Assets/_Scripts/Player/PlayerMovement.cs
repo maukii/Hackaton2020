@@ -11,8 +11,10 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     [Range(1.0f, 10.0f)]
-    [SerializeField] private float maxVelocity = 2.0f;
-    
+    [SerializeField] private float horizontalSpeed = 2.0f;
+
+    [Range(1.0f, 10.0f)]
+    [SerializeField] private float maxVelocity = 2.0f;   
 
 
     private void Awake()
@@ -26,22 +28,22 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
-
-    // TODO:: Add horizontal movement
     private void FixedUpdate()
     {
+        Vector2 movement = Vector2.zero;
         if(input.PressingDown)
         {
-            AddMovement(Vector2.up * -Physics2D.gravity * Time.deltaTime);
+            movement += Vector2.up * -Physics2D.gravity;
         }
 
-        var horizontalMovement = input.GetPlayerInput() * Time.deltaTime;
-        AddMovement(horizontalMovement /* * speed */);
+        movement += Vector2.right * input.Horizontal * horizontalSpeed;
+        movement *= Time.deltaTime;
+        AddMovement(movement);
     }
 
     private void AddMovement(Vector2 force)
     {
         rb.velocity += force;
     }
-
 }
+
