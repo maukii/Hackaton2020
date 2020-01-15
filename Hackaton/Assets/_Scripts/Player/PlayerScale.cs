@@ -6,10 +6,11 @@ public class PlayerScale : MonoBehaviour
 {
     private PlayerInput input;
 
+    [SerializeField] private Transform scalingTransform;
     [SerializeField] private float maxScale = 1.0f;
     [SerializeField] private float minScale = 0.25f;
     [SerializeField] private float scaleSpeed = 1f;
-
+    public float Scale => scalingTransform.localScale.x;
 
     private void Awake()
     {
@@ -23,13 +24,13 @@ public class PlayerScale : MonoBehaviour
 
     private void ScalePlayer(float scale)
     {
-        Vector3 newScale = transform.localScale * scale;
+        Vector3 newScale = scalingTransform.localScale * scale;
 
         newScale.x = Mathf.Clamp(newScale.x, minScale, maxScale);
         newScale.y = Mathf.Clamp(newScale.y, minScale, maxScale);
         newScale.z = Mathf.Clamp(newScale.z, minScale, maxScale);
 
-        transform.localScale = newScale;
+        scalingTransform.localScale = newScale;
     }
 }
 
