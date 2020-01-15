@@ -15,8 +15,8 @@ public class Obstacle : MonoBehaviour
         if(playerTransform.position.x >= transform.position.x)
         {
             GameManager.instance.AddScore();
-            LevelGenerator.instance.SpawnObstacle();
             Destroy(this);
+            //LevelGenerator.instance.SpawnObstacle();
             // enabled = false;
         }
     }
