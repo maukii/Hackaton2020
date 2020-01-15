@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
         {
             AddMovement(Vector2.up * -Physics2D.gravity * Time.deltaTime);
         }
+
+        var horizontalMovement = input.GetPlayerInput() * Time.deltaTime;
+        AddMovement(horizontalMovement /* * speed */);
     }
 
     private void AddMovement(Vector2 force)
