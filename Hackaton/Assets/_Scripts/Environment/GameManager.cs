@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private UnityEvent gameOverEvent;
+
     public static GameManager instance;
     public int score = 0;
 
@@ -18,16 +22,23 @@ public class GameManager : MonoBehaviour
 
     public void AddScore()
     {
-
-    }
-
-    public void GameOver()
-    {
-
+        score += 1;
     }
 
     public void StartGame()
     {
-
+        score = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void GameOver()
+    {
+        gameOverEvent?.Invoke();
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
 }
