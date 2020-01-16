@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;
     private PlayerScale scale;
     private Rigidbody2D rb;
+    private ParticleSystem ps;
 
     [Range(0.0f, 20.0f)] [SerializeField] private float upwardsTrust = 10.0f;
     [Range(0.0f, 20.0f)] [SerializeField] private float horizontalThrust = 7.5f;
@@ -16,13 +17,15 @@ public class PlayerMovement : MonoBehaviour
         input = GetComponent<PlayerInput>();
         scale = GetComponent<PlayerScale>();
         rb = GetComponent<Rigidbody2D>();
+        ps = GetComponentInChildren<ParticleSystem>();
     }
 
     private void FixedUpdate()
     {
-        if(input.PressingDown)
+        if (input.PressingDown)
         {
             rb.AddForce(Vector2.up * upwardsTrust, ForceMode2D.Force);
+            ps.Play(true);
         }
 
         rb.AddForce((Vector2.right * input.Horizontal * horizontalThrust) / scale.Scale, ForceMode2D.Force);
